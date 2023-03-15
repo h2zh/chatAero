@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>chatAviation - METAR, TAF, NOTAM and more</title>
+        <title>chatAero - METAR, TAF, NOTAM and more</title>
         <meta
           name="description"
           content="A Tool for Understanding Aviation Information"

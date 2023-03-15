@@ -52,9 +52,10 @@ const Navbar = () => {
               fontWeight: 700,
               color: "inherit",
               textDecoration: "none",
+              letterSpacing: ".1rem",
             }}
           >
-            chatAviation
+            chatAero
           </Typography>
 
           {/* menu icon on the desktop screen */}
@@ -114,9 +115,10 @@ const Navbar = () => {
               fontWeight: 700,
               color: "inherit",
               textDecoration: "none",
+              letterSpacing: ".1rem",
             }}
           >
-            chatAviation
+            chatAero
           </Typography>
 
           {/* menu on the desktop screen */}
