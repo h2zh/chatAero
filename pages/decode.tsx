@@ -10,6 +10,7 @@ import {
   concatMETARconvos,
   concatTAFconvos,
   popNOTAMconvos,
+  Conversation,
 } from "@/redux/reducers/convo";
 import SectionNOTAM from "@/components/sectionNOTAM";
 import SectionMETAR from "@/components/sectionMETAR";
@@ -23,37 +24,59 @@ export default function Decode() {
   const { convosNOTAM, convosMETAR, convosTAF } = useSelector(
     (state: any) => state.convo
   );
+  const [loading, setLoading] = useState(false);
+  const initPrompt = "Decode everything in the following NOTAM. Use UTC. ";
 
-  const handleEncodeAll = () => {
+  const handleEncodeAll = async () => {
+    setLoading(true);
+    const myNOTAMmsg: Conversation = {
+      role: "user",
+      content: NOTAM,
+      time: new Date().getTime(),
+    };
     if (NOTAM) {
       // add the latest user input to the conversation history for NOTAM
-      dispatch(concatNOTAMconvos({ role: "user", content: NOTAM }));
+      dispatch(concatNOTAMconvos(myNOTAMmsg));
       console.log(convosNOTAM);
-      fetch("/api/generate", {
+      const response = await fetch("/api/davinci", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ messages: convosNOTAM }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          dispatch(
-            concatNOTAMconvos({
-              role: "assistant",
-              content: data.result.choices[0].message.content,
-            })
-          );
-        });
+        body: JSON.stringify({ prompt: initPrompt + NOTAM }), // initPrompt will be prepended to the user input every time
+      }).then((response) => response.json());
+      setLoading(false);
 
-      //   const data = await response.json();
+      if (response.text) {
+        dispatch(
+          concatNOTAMconvos({
+            role: "assistant",
+            content: response.text,
+            time: new Date().getTime(),
+          })
+        );
+      } else {
+        alert("Something went wrong. Please try again later. ");
+      }
     }
+
     if (METAR) {
-      dispatch(concatMETARconvos({ role: "user", content: METAR }));
+      dispatch(
+        concatMETARconvos({
+          role: "user",
+          content: METAR,
+          time: new Date().getTime(),
+        })
+      );
     }
     if (TAF) {
-      dispatch(concatTAFconvos({ role: "user", content: TAF }));
+      dispatch(
+        concatTAFconvos({
+          role: "user",
+          content: TAF,
+          time: new Date().getTime(),
+        })
+      );
     }
   };
 

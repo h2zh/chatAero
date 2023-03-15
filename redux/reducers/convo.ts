@@ -1,8 +1,9 @@
 import {createSlice,PayloadAction} from '@reduxjs/toolkit';
 
-interface Conversation {
+export interface Conversation {
     role: string;
     content: string;
+    time: number;
 }
 
 interface Conversations {
@@ -16,7 +17,7 @@ interface Conversations {
 }
 
 const initialState: Conversations = {
-    convosNOTAM: [{"role": "system", "content": "Please precisely translates the following NOTAM to plain English. Do not write explanations. Use UTC."}],
+    convosNOTAM: [],
     convosMETAR: [],
     convosTAF: [],
 }
