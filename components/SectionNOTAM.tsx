@@ -1,5 +1,5 @@
 import ClearIcon from "@mui/icons-material/Clear";
-import { Box, IconButton, Stack, TextField } from "@mui/material";
+import { Box, IconButton, Skeleton, Stack, TextField } from "@mui/material";
 import { useCallback, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNOTAM } from "@/redux/reducers/userInput";
@@ -10,13 +10,36 @@ export default function SectionNOTAM() {
   // const { NOTAM } = useSelector((state: any) => state.userInput);
   const [textNOTAM, setTextNOTAM] = useState("");
   const { convosNOTAM } = useSelector((state: any) => state.convo);
+  const { NOTAMloading } = useSelector((state: any) => state.userInput);
+
   const testObj = [
-    { role: "user", content: "hi i'm a user" },
-    { role: "assistant", content: "hi i'm an assistant" },
+    { role: "user", content: "hi i'm a user", time: 1678906080121 },
+    { role: "assistant", content: "hi i'm an assistant", time: 1678906102272 },
   ];
 
   return (
-    <Stack>
+    <Stack spacing={2}>
+      <Stack>
+        {convosNOTAM.map((convo: any, index: any) => (
+          <TextOuput
+            key={index}
+            role={convo.role}
+            content={convo.content}
+            time={convo.time}
+          />
+        ))}
+      </Stack>
+
+      {NOTAMloading && (
+        <Stack direction="row" spacing={1}>
+          <Skeleton variant="circular" width={10} height={10} />
+          <Skeleton variant="circular" width={10} height={10} />
+          <Skeleton variant="circular" width={10} height={10} />
+          <Skeleton variant="circular" width={10} height={10} />
+          <Skeleton variant="circular" width={10} height={10} />
+          <Skeleton variant="circular" width={10} height={10} />
+        </Stack>
+      )}
       <Box
         component="form"
         sx={{ width: "100%" }}
@@ -31,6 +54,13 @@ export default function SectionNOTAM() {
             multiline
             maxRows={4}
             value={textNOTAM}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: "10px", // need to restart the server to see this change
+                },
+              },
+            }}
             onChange={useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
               setTextNOTAM(e.target.value);
               dispatch(setNOTAM(e.target.value));
@@ -53,18 +83,6 @@ export default function SectionNOTAM() {
           />
         </div>
       </Box>
-      <Stack>
-        {/* {testObj
-          .filter((convo: any) => convo.role === "assistant")
-          .map((convo: any, index: any) => (
-            <TextOuput key={index} answer={convo.content} />
-          ))} */}
-        {convosNOTAM
-          .filter((convo: any) => convo.role === "assistant")
-          .map((convo: any, index: any) => (
-            <TextOuput key={index} answer={convo.content} />
-          ))}
-      </Stack>
     </Stack>
   );
 }

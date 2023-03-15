@@ -48,7 +48,8 @@ const Navbar = () => {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
+              fontFamily:
+                '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" ',
               fontWeight: 700,
               color: "inherit",
               textDecoration: "none",
@@ -61,7 +62,7 @@ const Navbar = () => {
           {/* menu icon on the desktop screen */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
-              size="large"
+              size="medium"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
@@ -111,8 +112,10 @@ const Navbar = () => {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "monospace",
+              fontFamily:
+                '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" ',
               fontWeight: 700,
+              fontSize: "1.3rem",
               color: "inherit",
               textDecoration: "none",
               letterSpacing: ".1rem",

@@ -23,6 +23,13 @@ export default function SectionMETAR() {
             label={"METAR"}
             value={textMETAR} // Can't use METAR from useSelector; useRef and inputRef={METARTextfield} to bind
             multiline
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: "10px", // need to restart the server to see this change
+                },
+              },
+            }}
             maxRows={4}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setTextMETAR(e.target.value);

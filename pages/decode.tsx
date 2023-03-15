@@ -1,10 +1,15 @@
 import styles from "@/styles/Home.module.css";
-import { Container, Stack, TextField } from "@mui/material";
+import { Container, Divider, Stack, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useCallback, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setMETAR, setTAF, setNOTAM } from "@/redux/reducers/userInput";
+import {
+  setNOTAM,
+  setMETAR,
+  setTAF,
+  setNOTAMLoading,
+} from "@/redux/reducers/userInput";
 import {
   concatNOTAMconvos,
   concatMETARconvos,
@@ -20,32 +25,41 @@ export default function Decode() {
   //   const types = ["METAR", "TAF", "NOTAM"];
   const dispatch = useDispatch();
 
-  const { METAR, TAF, NOTAM } = useSelector((state: any) => state.userInput);
+  const { METAR, TAF, NOTAM, loading } = useSelector(
+    (state: any) => state.userInput
+  );
   const { convosNOTAM, convosMETAR, convosTAF } = useSelector(
     (state: any) => state.convo
   );
-  const [loading, setLoading] = useState(false);
-  const initPrompt = "Decode everything in the following NOTAM. Use UTC. ";
+  const initNOTAMPrompt = "Decode everything in the following NOTAM. Use UTC. ";
+  //   const [isFirstNOTAM, setIsFirstNOTAM] = useState(true);
 
   const handleEncodeAll = async () => {
-    setLoading(true);
     const myNOTAMmsg: Conversation = {
       role: "user",
       content: NOTAM,
       time: new Date().getTime(),
     };
     if (NOTAM) {
+      dispatch(setNOTAMLoading(true));
+      // TODO: delete the input text
+
       // add the latest user input to the conversation history for NOTAM
       dispatch(concatNOTAMconvos(myNOTAMmsg));
+      //   let inputPrompt = isFirstNOTAM ? initNOTAMPrompt.concat(NOTAM) : NOTAM;
+      //   setIsFirstNOTAM(false);
+
       console.log(convosNOTAM);
       const response = await fetch("/api/davinci", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: initPrompt + NOTAM }), // initPrompt will be prepended to the user input every time
+        body: JSON.stringify({
+          prompt: initNOTAMPrompt.concat(NOTAM),
+        }), // initPrompt will be prepended to the user input every time
       }).then((response) => response.json());
-      setLoading(false);
+      dispatch(setNOTAMLoading(false));
 
       if (response.text) {
         dispatch(
@@ -55,6 +69,8 @@ export default function Decode() {
             time: new Date().getTime(),
           })
         );
+        // clear the user input and state var NOTAM
+        dispatch(setNOTAM(""));
       } else {
         alert("Something went wrong. Please try again later. ");
       }
@@ -91,10 +107,12 @@ export default function Decode() {
   console.log(convosNOTAM);
 
   return (
-    <Container sx={{ mt: 4 }} maxWidth="md">
+    <Container sx={{ mt: 2 }} maxWidth="md">
       <Stack direction="column" spacing={{ xs: 2, md: 3 }}>
         <SectionNOTAM />
+        {convosMETAR.length > 0 ?? <Divider />}
         <SectionMETAR />
+        {convosTAF.length > 0 ?? <Divider />}
         <SectionTAF />
       </Stack>
 

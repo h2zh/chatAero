@@ -1,18 +1,17 @@
-import { Card, CardContent } from "@mui/material";
+import React from "react";
+// import ChatMsg from "@mui-treasury/components/chatMsg/ChatMsg"; // false alarm
+import ChatMsg from "./ChatMsg.js";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import AirplaneTicketIcon from "@mui/icons-material/AirplaneTicket";
 
-export default function TextOuput(props: any) {
+export default function TextOuput({ role, content, time }: any) {
   return (
-    <Card
-      variant="outlined"
-      sx={{ backgroundColor: "#eceff1", color: "black" }}
-    >
-      <CardContent>
-        <Typography variant="body1">{props.answer}</Typography>
-      </CardContent>
-    </Card>
+    <>
+      {role === "assistant" && <ChatMsg messages={[content]} />}
+      {role === "user" && <ChatMsg side={"right"} messages={[content]} />}
+    </>
   );
 }

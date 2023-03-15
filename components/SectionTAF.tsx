@@ -25,6 +25,13 @@ export default function SectionTAF() {
             multiline
             maxRows={4}
             value={textTAR}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: "10px", // need to restart the server to see this change
+                },
+              },
+            }}
             onChange={useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
               setTextTAR(e.target.value);
               dispatch(setTAF(e.target.value));

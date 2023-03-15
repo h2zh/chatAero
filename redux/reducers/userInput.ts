@@ -7,6 +7,7 @@ const userInputSlice = createSlice({
         METAR: '', 
         TAF: "", 
         NOTAM: "",
+        NOTAMloading: false,
     },
     reducers: {
         setMETAR: (state, action) => {
@@ -18,8 +19,11 @@ const userInputSlice = createSlice({
         setNOTAM: (state, action) => {
             state.NOTAM = action.payload;
         },
+        setNOTAMLoading: (state, action) => {
+            state.NOTAMloading = action.payload;
+        }
     }
 });
 
-export const {setMETAR, setTAF, setNOTAM} = userInputSlice.actions;
+export const {setMETAR, setTAF, setNOTAM, setNOTAMLoading} = userInputSlice.actions;
 export default userInputSlice.reducer;
