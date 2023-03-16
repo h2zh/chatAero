@@ -34,5 +34,7 @@ export default async function handler(req:GenerateApiRequest, res: NextApiRespon
     })
 
     const response = aiResult.data.choices[0].text?.trim() || 'Sorry, there was a problem.';
+    console.log(aiResult.data.choices)
+    
     res.status(200).json({text: response})
 }

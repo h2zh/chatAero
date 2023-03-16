@@ -37,9 +37,6 @@ export default function SectionTAF() {
               dispatch(setTAF(e.target.value));
             }, [])}
             InputProps={{
-              style: {
-                height: "56px", // need to restart the server to see this change
-              },
               endAdornment: (
                 <IconButton
                   sx={{ visibility: textTAR ? "visible" : "hidden" }}

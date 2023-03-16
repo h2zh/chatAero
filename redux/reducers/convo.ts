@@ -15,11 +15,19 @@ interface Conversations {
 interface Conversations {
     convosTAF: Conversation[];
 }
+interface Conversations {
+    convosAFTN: Conversation[];
+}
+interface Conversations {
+    convosSITA: Conversation[];
+}
 
 const initialState: Conversations = {
     convosNOTAM: [],
     convosMETAR: [],
     convosTAF: [],
+    convosAFTN: [],
+    convosSITA: [],
 }
 
 const convoSlice = createSlice({
@@ -37,9 +45,15 @@ const convoSlice = createSlice({
         },
         popNOTAMconvos: (state) => {
             state.convosNOTAM.pop();
-        }
+        },
+        concatAFTNconvos: (state, action: PayloadAction<Conversation>) => {
+            state.convosAFTN.push(action.payload);
+        },
+        concatSITAconvos: (state, action: PayloadAction<Conversation>) => {
+            state.convosSITA.push(action.payload);
+        },
     },
 });
 
-export const {concatNOTAMconvos, concatMETARconvos, concatTAFconvos, popNOTAMconvos} = convoSlice.actions;
+export const {concatNOTAMconvos, concatMETARconvos, concatTAFconvos, popNOTAMconvos, concatAFTNconvos, concatSITAconvos} = convoSlice.actions;
 export default convoSlice.reducer;

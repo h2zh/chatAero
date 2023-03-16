@@ -16,6 +16,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AirplaneTicketIcon from "@mui/icons-material/AirplaneTicket";
+import Image from "next/image";
 
 const pages = ["Decode", "Lookup", "About"];
 
@@ -40,24 +41,19 @@ const Navbar = () => {
           <AirplaneTicketIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
           />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily:
-                '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" ',
-              fontWeight: 700,
-              color: "inherit",
-              textDecoration: "none",
-              letterSpacing: ".1rem",
-            }}
-          >
-            chatAero
-          </Typography>
+          <Box sx={{ display: { xs: "none", md: "flex" }, flexGrow: 0, mr: 2 }}>
+            <Link href={"/"}>
+              <h3
+                style={{
+                  fontFamily:
+                    "-apple-system, Arial, Roboto, Helvetica,  Poppins ",
+                  fontSize: 26,
+                }}
+              >
+                chatAero
+              </h3>
+            </Link>
+          </Box>
 
           {/* menu icon on the desktop screen */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -103,26 +99,19 @@ const Navbar = () => {
           <AirplaneTicketIcon
             sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
           />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily:
-                '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" ',
-              fontWeight: 700,
-              fontSize: "1.3rem",
-              color: "inherit",
-              textDecoration: "none",
-              letterSpacing: ".1rem",
-            }}
-          >
-            chatAero
-          </Typography>
+          <Box sx={{ display: { xs: "flex", md: "none" }, flexGrow: 1 }}>
+            <Link href={"/"}>
+              <h3
+                style={{
+                  fontFamily:
+                    "-apple-system, Arial, Roboto, Helvetica,  Poppins ",
+                  fontSize: 26,
+                }}
+              >
+                chatAero
+              </h3>
+            </Link>
+          </Box>
 
           {/* menu on the desktop screen */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>

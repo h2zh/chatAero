@@ -1,16 +1,30 @@
 import ClearIcon from "@mui/icons-material/Clear";
-import { Box, IconButton, Skeleton, Stack, TextField } from "@mui/material";
-import { useCallback, useRef, useState } from "react";
+import {
+  Box,
+  IconButton,
+  Skeleton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNOTAM } from "@/redux/reducers/userInput";
 import TextOuput from "./TextOutput";
+import SendIcon from "@mui/icons-material/Send";
 
-export default function SectionNOTAM() {
+export default function SectionNOTAM(props: any) {
   const dispatch = useDispatch();
-  // const { NOTAM } = useSelector((state: any) => state.userInput);
+  const { NOTAM } = useSelector((state: any) => state.userInput);
   const [textNOTAM, setTextNOTAM] = useState("");
   const { convosNOTAM } = useSelector((state: any) => state.convo);
   const { NOTAMloading } = useSelector((state: any) => state.userInput);
+  let floatingSpace = convosNOTAM.length === 0 ? 0 : 2;
+
+  // text field is subject to state var NOTAM, later on, only the state var NOTAM need to update
+  useEffect(() => {
+    setTextNOTAM(NOTAM);
+  }, [NOTAM]);
 
   const testObj = [
     { role: "user", content: "hi i'm a user", time: 1678906080121 },
@@ -18,7 +32,7 @@ export default function SectionNOTAM() {
   ];
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={floatingSpace}>
       <Stack>
         {convosNOTAM.map((convo: any, index: any) => (
           <TextOuput
@@ -62,22 +76,30 @@ export default function SectionNOTAM() {
               },
             }}
             onChange={useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-              setTextNOTAM(e.target.value);
+              // setTextNOTAM(e.target.value);
               dispatch(setNOTAM(e.target.value));
             }, [])}
             InputProps={{
-              style: {
-                height: "56px", // need to restart the server to see this change
-              },
               endAdornment: (
-                <IconButton
-                  sx={{ visibility: textNOTAM ? "visible" : "hidden" }}
-                  onClick={() => {
-                    setTextNOTAM("");
-                  }}
-                >
-                  <ClearIcon />
-                </IconButton>
+                <>
+                  <IconButton
+                    sx={{ visibility: textNOTAM ? "visible" : "hidden" }}
+                    onClick={() => {
+                      dispatch(setNOTAM(""));
+                    }}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                  <IconButton
+                    sx={{ visibility: textNOTAM ? "visible" : "hidden" }}
+                    onClick={() => {
+                      props.handleNOTAM();
+                      dispatch(setNOTAM(""));
+                    }}
+                  >
+                    <SendIcon />
+                  </IconButton>
+                </>
               ),
             }}
           />

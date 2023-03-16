@@ -36,7 +36,7 @@ const ChatMsg = withStyles(defaultChatMsgStyles, { name: "ChatMsg" })(
         justifyContent={side === "right" ? "flex-end" : "flex-start"}
         {...GridContainerProps}
       >
-        <Grid item xs={8}>
+        <Grid item xs={11}>
           {messages.map((msg, i) => {
             const TypographyProps = getTypographyProps(msg, i, props);
             return (
@@ -52,7 +52,9 @@ const ChatMsg = withStyles(defaultChatMsgStyles, { name: "ChatMsg" })(
                     TypographyProps.className
                   )}
                 >
-                  {msg}
+                  {msg.split("\n").map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))}
                 </Typography>
               </div>
             );

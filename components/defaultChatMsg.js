@@ -17,7 +17,7 @@ export default ({ palette, spacing }) => {
     msg: {
       padding: spacing(1, 2),
       borderRadius: 4,
-      marginBottom: 4,
+      marginBottom: 6,
       display: "inline-block",
       wordBreak: "break-word",
       fontFamily:
