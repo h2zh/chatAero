@@ -16,6 +16,6 @@ export default async function handler(
       messages: req.body.messages,
       temperature: 0.1,
     })
-    console.log(completion.data.choices)
+    // console.log(completion.data.choices)
     res.status(200).json({ result: completion.data })
   }

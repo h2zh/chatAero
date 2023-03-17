@@ -1,12 +1,5 @@
 import ClearIcon from "@mui/icons-material/Clear";
-import {
-  Box,
-  IconButton,
-  Skeleton,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, IconButton, Skeleton, Stack, TextField } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMETAR } from "@/redux/reducers/userInput";
@@ -62,6 +55,7 @@ export default function SectionMETAR(props: any) {
             multiline
             maxRows={4}
             value={textMETAR}
+            disabled={METARloading}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {

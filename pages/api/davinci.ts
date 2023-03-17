@@ -18,6 +18,7 @@ const openai =  new OpenAIApi(configuration)
 
 export default async function handler(req:GenerateApiRequest, res: NextApiResponse<ResponseData>) {
     const prompt = req.body.prompt;
+    // console.log(prompt)
 
     if (!prompt || prompt === ''){
         return new Response('Please send your prompt', {status: 400})
@@ -34,7 +35,7 @@ export default async function handler(req:GenerateApiRequest, res: NextApiRespon
     })
 
     const response = aiResult.data.choices[0].text?.trim() || 'Sorry, there was a problem.';
-    console.log(aiResult.data.choices)
+    // console.log(aiResult.data.choices)
     
     res.status(200).json({text: response})
 }

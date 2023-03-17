@@ -18,7 +18,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AirplaneTicketIcon from "@mui/icons-material/AirplaneTicket";
 import Image from "next/image";
 
-const pages = ["Decode", "Lookup", "About"];
+const pages = ["Decode", "About"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(

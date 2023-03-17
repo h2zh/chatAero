@@ -1,8 +1,9 @@
 import styles from "@/styles/Home.module.css";
-import { Container, Divider, Stack, TextField } from "@mui/material";
+import { Chip, Container, Divider, Stack, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
+import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import { useCallback, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -29,6 +30,9 @@ import {
 import SectionNOTAM from "@/components/sectionNOTAM";
 import SectionMETAR from "@/components/sectionMETAR";
 import SectionTAF from "@/components/sectionTAF";
+import SectionAFTN from "@/components/sectionAFTN";
+import SectionSITA from "@/components/sectionSITA";
+import ExportButton from "@/components/ExportButton";
 
 export default function Decode() {
   const dispatch = useDispatch();
@@ -36,9 +40,8 @@ export default function Decode() {
   const { METAR, TAF, NOTAM, AFTN, SITA, loading } = useSelector(
     (state: any) => state.userInput
   );
-  const { convosNOTAM, convosMETAR, convosTAF } = useSelector(
-    (state: any) => state.convo
-  );
+  const { convosNOTAM, convosMETAR, convosTAF, convosAFTN, convosSITA } =
+    useSelector((state: any) => state.convo);
 
   const handleSubmit = async (
     content: string,
@@ -120,7 +123,8 @@ export default function Decode() {
   };
 
   const handleAFTN = async () => {
-    const initAFTNPrompt = "Decode everything in the following AFTN. Use UTC. ";
+    const initAFTNPrompt =
+      "Decode everything in the following AFTN Teletype message. Use UTC. ";
 
     handleSubmit(
       AFTN,
@@ -132,7 +136,8 @@ export default function Decode() {
   };
 
   const handleSITA = async () => {
-    const initSITAPrompt = "Decode everything in the following SITA. Use UTC. ";
+    const initSITAPrompt =
+      "Decode everything in the following SITA Teletype message. Use UTC. ";
 
     handleSubmit(
       SITA,
@@ -146,8 +151,32 @@ export default function Decode() {
   const handleEncodeAll = async () => {
     handleNOTAM();
     handleMETAR();
+    handleTAF();
+    handleAFTN();
+    handleSITA();
   };
 
+  const handleOneExport = (fieldConvos: any, filename: string) => {
+    if (fieldConvos.length > 0) {
+      const convosString = JSON.stringify(fieldConvos);
+      const convosBlob = new Blob([convosString], {
+        type: "text/plain",
+      });
+      const convosURL = URL.createObjectURL(convosBlob);
+      const convosLink = document.createElement("a");
+      convosLink.download = `chatAero_${filename}.json`;
+      convosLink.href = convosURL;
+      convosLink.click();
+    }
+  };
+
+  const handleAllExport = () => {
+    handleOneExport(convosNOTAM, "NOTAM");
+    handleOneExport(convosMETAR, "METAR");
+    handleOneExport(convosTAF, "TAF");
+    handleOneExport(convosAFTN, "AFTN");
+    handleOneExport(convosSITA, "SITA");
+  };
   //   console.log(convosNOTAM);
   //   const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
   //     dispatch(setNOTAM(""));
@@ -159,19 +188,44 @@ export default function Decode() {
   console.log(convosNOTAM);
 
   return (
-    <Container sx={{ mt: 2 }} maxWidth="md">
-      <Stack direction="column" spacing={{ xs: 2, md: 3 }}>
+    <Container sx={{ mt: 3, height: "90vh" }} maxWidth="md">
+      <Stack direction="column" spacing={{ xs: 2, md: 2 }}>
+        {convosNOTAM.length > 0 && (
+          <Divider>
+            <Chip label="NOTAM" size="medium" variant="outlined" />
+          </Divider>
+        )}
         <SectionNOTAM handleNOTAM={handleNOTAM} />
-        {convosMETAR.length > 0 && <Divider />}
+        {convosMETAR.length > 0 && (
+          <Divider>
+            <Chip label="METAR" size="medium" variant="outlined" />
+          </Divider>
+        )}
         <SectionMETAR handleMETAR={handleMETAR} />
-        {convosTAF.length > 0 && <Divider />}
-        <SectionTAF />
+        {convosTAF.length > 0 && (
+          <Divider>
+            <Chip label="TAF" size="medium" variant="outlined" />
+          </Divider>
+        )}
+        <SectionTAF handleTAF={handleTAF} />
+        {convosAFTN.length > 0 && (
+          <Divider>
+            <Chip label="AFTN" size="medium" variant="outlined" />
+          </Divider>
+        )}
+        <SectionAFTN handleAFTN={handleAFTN} />
+        {convosSITA.length > 0 && (
+          <Divider>
+            <Chip label="SITA" size="medium" variant="outlined" />
+          </Divider>
+        )}
+        <SectionSITA handleSITA={handleTAF} />
       </Stack>
 
       <Stack
         direction="row"
         spacing={2}
-        sx={{ marginTop: 3, justifyContent: "center" }}
+        sx={{ marginY: 3, justifyContent: "center" }}
       >
         <Button
           variant="contained"
@@ -182,13 +236,7 @@ export default function Decode() {
         >
           Decode
         </Button>
-        {/* <Button
-          variant="contained"
-          href="#contained-buttons"
-          onClick={handleClear}
-        >
-          Clear
-        </Button> */}
+        <ExportButton handleAllExport={handleAllExport} />
       </Stack>
     </Container>
   );
