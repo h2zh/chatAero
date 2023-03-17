@@ -1,4 +1,13 @@
-import { Box, Container, Divider, Grid, Typography, Link } from "@mui/material";
+import {
+  Box,
+  Container,
+  Divider,
+  Grid,
+  Typography,
+  Link,
+  Paper,
+} from "@mui/material";
+import Head from "next/head";
 
 const Footer = () => {
   const email = "howardev@outlook.com";
@@ -12,7 +21,7 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        // position: "fixed",
+        position: "fixed",
         bottom: 0,
         width: "100%",
         height: "auto",

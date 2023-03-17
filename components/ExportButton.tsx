@@ -23,7 +23,7 @@ export default function ExportButton(props: any) {
         ref={buttonComponent}
         variant="contained"
         href="#contained-buttons"
-        size="large"
+        size="medium"
         startIcon={<CloudDownloadIcon />}
         onClick={handleClick}
       >

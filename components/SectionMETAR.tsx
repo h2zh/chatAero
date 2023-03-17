@@ -55,7 +55,7 @@ export default function SectionMETAR(props: any) {
             multiline
             maxRows={4}
             value={textMETAR}
-            disabled={METARloading}
+            // disabled={METARloading}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {

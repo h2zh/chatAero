@@ -4,7 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 const RootBox = styled(Box)(({ theme }) => ({
-  height: "90vh",
+  height: "100vh",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",

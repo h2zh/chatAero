@@ -188,7 +188,7 @@ export default function Decode() {
   console.log(convosNOTAM);
 
   return (
-    <Container sx={{ mt: 3, height: "90vh" }} maxWidth="md">
+    <Container sx={{ mt: 3, height: "100vh" }} maxWidth="md">
       <Stack direction="column" spacing={{ xs: 2, md: 2 }}>
         {convosNOTAM.length > 0 && (
           <Divider>
@@ -225,12 +225,12 @@ export default function Decode() {
       <Stack
         direction="row"
         spacing={2}
-        sx={{ marginY: 3, justifyContent: "center" }}
+        sx={{ marginY: 3, justifyContent: "center", paddingBottom: 15 }}
       >
         <Button
           variant="contained"
           href="#contained-buttons"
-          size="large"
+          size="medium"
           endIcon={<SendIcon />}
           onClick={handleEncodeAll}
         >
