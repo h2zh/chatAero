@@ -48,31 +48,42 @@ export default function About() {
 
   return (
     <>
-      <Container
-        maxWidth="md"
+      <Box
         sx={{
-          height: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "top",
-          alignItems: "center",
+          width: "100%",
           background: `linear-gradient(to bottom, #1976d2, #F6F1F1)`,
+          height: "100vh",
         }}
       >
         <Head>
           <title>About | chatAero</title>
         </Head>
-        <BodyTypography sx={{ mb: "2rem" }}>
-          Introducing chatAero, a new GPT-based aviation message translator
-          designed for the aviation community, developed by Howard Zhong. With
-          his cross-disciplinary experience in both Computer Science and
-          Aviation, Howard identified the needs for AIGC in the aviation
-          industry. He worked closely with pilots, air traffic controllers,
-          dispatchers, and aviation enthusiasts to create chatAero, an AIGC
-          solution that tailors to different usage scenarios of aviation
-          messages.
-        </BodyTypography>
-        {/* <Typography variant="h6" sx={{ mb: "1rem" }}>
+        <Container
+          maxWidth="md"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "top",
+            alignItems: "center",
+          }}
+        >
+          <Box>
+            <BodyTypography sx={{ mb: "2rem" }}>
+              Introducing{" "}
+              <i>
+                <strong>chatAero</strong>
+              </i>
+              , a new GPT-based aviation message translator designed for the
+              aviation community, developed by Howard Zhong. With his
+              cross-disciplinary experience in both Computer Science and
+              Aviation, Howard identified the needs for AIGC in the aviation
+              industry. He worked closely with pilots, air traffic controllers,
+              dispatchers, and aviation enthusiasts to build chatAero, an AIGC
+              tool that tailors to different usage scenarios of aviation
+              messages.
+            </BodyTypography>
+          </Box>
+          {/* <Typography variant="h6" sx={{ mb: "1rem" }}>
           About the author
         </Typography>
         <Typography variant="body1" sx={{ mb: "1rem" }}>
@@ -92,7 +103,8 @@ export default function About() {
           He is looking for software engineering 2023 summer/fall internship
           worldwide.
         </Typography> */}
-      </Container>
+        </Container>
+      </Box>
       <Footer />
     </>
   );

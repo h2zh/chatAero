@@ -27,12 +27,15 @@ import {
   concatAFTNconvos,
   concatSITAconvos,
 } from "@/redux/reducers/convo";
+import { setUsageCount } from "@/redux/reducers/acctData";
 import SectionNOTAM from "@/components/SectionNOTAM";
 import SectionMETAR from "@/components/SectionMETAR";
 import SectionTAF from "@/components/SectionTAF";
 import SectionAFTN from "@/components/SectionAFTN";
 import SectionSITA from "@/components/SectionSITA";
 import ExportButton from "@/components/ExportButton";
+import Head from "next/head";
+import Login from "@/components/Login";
 
 export default function Decode() {
   const dispatch = useDispatch();
@@ -75,6 +78,7 @@ export default function Decode() {
         }), // initPrompt will be prepended to the user input every time
       }).then((response) => response.json());
       dispatch(setFieldLoading(false));
+      dispatch(setUsageCount(1));
 
       if (response.text) {
         dispatch(
@@ -189,6 +193,10 @@ export default function Decode() {
 
   return (
     <Container sx={{ mt: 3, height: "100vh" }} maxWidth="md">
+      <Head>
+        <title>chatAero | Aviation Messages AI Decoder</title>
+      </Head>
+      <Login />
       <Stack direction="column" spacing={{ xs: 2, md: 2 }}>
         {convosNOTAM.length > 0 && (
           <Divider>

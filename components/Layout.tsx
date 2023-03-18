@@ -15,6 +15,7 @@ export default function Layout({ children, ...props }: Props) {
       <Box component="main" sx={{ flexGrow: 1 }}>
         {children}
       </Box>
+      {/* <Footer /> */}
     </Box>
   );
 }
