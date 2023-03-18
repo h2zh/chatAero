@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import { Box, Button, Container, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import Head from "next/head";
@@ -68,6 +69,7 @@ export default function Index() {
           </SubtitleTypography>
         </Container>
       </RootBox>
+      <Footer />
     </>
   );
 }

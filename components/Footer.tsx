@@ -21,10 +21,10 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        position: "fixed",
+        position: "relative",
         bottom: 0,
         width: "100%",
-        height: "auto",
+        // height: "auto",
         backgroundColor: "#cfd8dc",
         paddingTop: "1rem",
         paddingBottom: "1rem",
@@ -49,8 +49,9 @@ const Footer = () => {
               {`© ${new Date().getFullYear()} Howard Zhong. All rights reserved.`}
             </Typography>
             <Typography color="textSecondary" variant="subtitle2">
-              {`CS @ UW-Madison | Looking for software engineering 2023 internship worldwide | `}
-
+              {`CS @ UW-Madison | Looking for software engineering 2023 summer/fall internship worldwide`}
+            </Typography>
+            <Typography color="textSecondary" variant="subtitle2">
               <Link href={mailtoUrl} underline="always">
                 Contact
               </Link>

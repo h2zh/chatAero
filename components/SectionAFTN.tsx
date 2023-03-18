@@ -54,7 +54,7 @@ export default function SectionAFTN(props: any) {
             multiline
             maxRows={4}
             value={textAFTN}
-            disabled={AFTNloading}
+            // disabled={AFTNloading}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {

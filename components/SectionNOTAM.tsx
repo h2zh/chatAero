@@ -68,7 +68,7 @@ export default function SectionNOTAM(props: any) {
             multiline
             maxRows={4}
             value={textNOTAM}
-            disabled={NOTAMloading}
+            // disabled={NOTAMloading}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {

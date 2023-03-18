@@ -27,11 +27,11 @@ import {
   concatAFTNconvos,
   concatSITAconvos,
 } from "@/redux/reducers/convo";
-import SectionNOTAM from "@/components/sectionNOTAM";
-import SectionMETAR from "@/components/sectionMETAR";
-import SectionTAF from "@/components/sectionTAF";
-import SectionAFTN from "@/components/sectionAFTN";
-import SectionSITA from "@/components/sectionSITA";
+import SectionNOTAM from "@/components/SectionNOTAM";
+import SectionMETAR from "@/components/SectionMETAR";
+import SectionTAF from "@/components/SectionTAF";
+import SectionAFTN from "@/components/SectionAFTN";
+import SectionSITA from "@/components/SectionSITA";
 import ExportButton from "@/components/ExportButton";
 
 export default function Decode() {

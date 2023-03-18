@@ -54,7 +54,7 @@ export default function SectionSITA(props: any) {
             multiline
             maxRows={4}
             value={textSITA}
-            disabled={SITAloading}
+            // disabled={SITAloading}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {

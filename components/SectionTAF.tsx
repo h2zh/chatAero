@@ -54,7 +54,7 @@ export default function SectionTAF(props: any) {
             multiline
             maxRows={4}
             value={textTAF}
-            disabled={TAFloading}
+            // disabled={TAFloading}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
