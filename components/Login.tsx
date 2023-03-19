@@ -19,7 +19,7 @@ interface LoginDialogProps {
   onClose: () => void;
 }
 
-const Login = () => {
+const Login = ({ open, onClose }: LoginDialogProps) => {
   const router = useRouter();
   const { username, userEmail, usageCount, isLoginPopupOpen } = useAppSelector(
     (state: any) => state.acctData
@@ -35,10 +35,6 @@ const Login = () => {
     router.push("/");
   };
 
-  const handleLoginDialogClose = () => {
-    dispatch(setIsLoginPopupOpen(false));
-  };
-
   // logout user when they chat over 30 messages
   if (usageCount > 30) {
     dispatch(setUsageCount(0));
@@ -50,7 +46,7 @@ const Login = () => {
 
   return (
     <Box>
-      <Dialog open={isLoginPopupOpen} onClose={handleLoginDialogClose} sx={{}}>
+      <Dialog open={open} onClose={onClose} sx={{}}>
         <Box sx={{ m: 3 /* margin top */ }}>
           <Box sx={{ mb: 3 }}>
             <Typography

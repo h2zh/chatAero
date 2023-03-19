@@ -64,6 +64,10 @@ const Navbar = () => {
     dispatch(logout());
   };
 
+  const handleLoginDialogClose = () => {
+    dispatch(setIsLoginPopupOpen(false));
+  };
+
   // route protection
   if (!username && router.asPath === "/decode") {
     dispatch(setIsLoginPopupOpen(true));
@@ -203,7 +207,7 @@ const Navbar = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Login />
+      <Login open={isLoginPopupOpen} onClose={handleLoginDialogClose} />
     </>
   );
 };
