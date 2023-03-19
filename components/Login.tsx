@@ -10,8 +10,7 @@ import {
   Input,
   Typography,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { setUsageCount } from "@/redux/reducers/acctData";
+import { setUsageCount, setIsLoginPopupOpen } from "@/redux/reducers/acctData";
 import { loginWithGoogle, logout } from "./AuthOps";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 
@@ -22,7 +21,7 @@ interface LoginDialogProps {
 
 const Login = () => {
   const router = useRouter();
-  const { username, userEmail, usageCount, isLoginPopupOpen } = useSelector(
+  const { username, userEmail, usageCount, isLoginPopupOpen } = useAppSelector(
     (state: any) => state.acctData
   );
   const dispatch = useAppDispatch();
@@ -36,6 +35,10 @@ const Login = () => {
     router.push("/");
   };
 
+  const handleLoginDialogClose = () => {
+    dispatch(setIsLoginPopupOpen(false));
+  };
+
   // logout user when they chat over 30 messages
   if (usageCount > 30) {
     dispatch(setUsageCount(0));
@@ -47,10 +50,7 @@ const Login = () => {
 
   return (
     <Box>
-      <Dialog
-        open={isLoginPopupOpen} // TODO: when username is not null, it is authorized user and set open to true
-        sx={{}}
-      >
+      <Dialog open={isLoginPopupOpen} onClose={handleLoginDialogClose} sx={{}}>
         <Box sx={{ m: 3 /* margin top */ }}>
           <Box sx={{ mb: 3 }}>
             <Typography

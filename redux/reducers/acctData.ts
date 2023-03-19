@@ -8,7 +8,7 @@ const acctDataSlice = createSlice({
         userEmail: null, 
         authLoading: false,
         usageCount: 0,
-        isLoginPopupOpen: true,
+        isLoginPopupOpen: false,
         error: null,
     },
     reducers: {

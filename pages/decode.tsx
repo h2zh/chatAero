@@ -4,8 +4,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import { useCallback, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import {
   setNOTAM,
   setMETAR,
@@ -27,7 +27,7 @@ import {
   concatAFTNconvos,
   concatSITAconvos,
 } from "@/redux/reducers/convo";
-import { setUsageCount } from "@/redux/reducers/acctData";
+import { setIsLoginPopupOpen, setUsageCount } from "@/redux/reducers/acctData";
 import SectionNOTAM from "@/components/SectionNOTAM";
 import SectionMETAR from "@/components/SectionMETAR";
 import SectionTAF from "@/components/SectionTAF";
@@ -38,13 +38,13 @@ import Head from "next/head";
 import Login from "@/components/Login";
 
 export default function Decode() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { METAR, TAF, NOTAM, AFTN, SITA, loading } = useSelector(
+  const { METAR, TAF, NOTAM, AFTN, SITA, loading } = useAppSelector(
     (state: any) => state.userInput
   );
   const { convosNOTAM, convosMETAR, convosTAF, convosAFTN, convosSITA } =
-    useSelector((state: any) => state.convo);
+    useAppSelector((state: any) => state.convo);
 
   const handleSubmit = async (
     content: string,
@@ -189,63 +189,76 @@ export default function Decode() {
 
   //     console.log("METAR", METAR.length);
   //   };
-  console.log(convosNOTAM);
+  // console.log(convosNOTAM);
+
+  // protect decode page from unauthenticated users
+  // const { username, isLoginPopupOpen } = useAppSelector(
+  //   (state: any) => state.acctData
+  // );
+  // console.log("isLoginPopupOpen", isLoginPopupOpen);
+  // console.log("is username true", username == true);
+  // if (!username && isLoginPopupOpen === false) {
+  //   setIsLoginPopupOpen(true);
+  // }
 
   return (
-    <Container sx={{ mt: 3, height: "100vh" }} maxWidth="md">
-      <Head>
-        <title>chatAero | Aviation Messages AI Decoder</title>
-      </Head>
-      <Login />
-      <Stack direction="column" spacing={{ xs: 2, md: 2 }}>
-        {convosNOTAM.length > 0 && (
-          <Divider>
-            <Chip label="NOTAM" size="medium" variant="outlined" />
-          </Divider>
-        )}
-        <SectionNOTAM handleNOTAM={handleNOTAM} />
-        {convosMETAR.length > 0 && (
-          <Divider>
-            <Chip label="METAR" size="medium" variant="outlined" />
-          </Divider>
-        )}
-        <SectionMETAR handleMETAR={handleMETAR} />
-        {convosTAF.length > 0 && (
-          <Divider>
-            <Chip label="TAF" size="medium" variant="outlined" />
-          </Divider>
-        )}
-        <SectionTAF handleTAF={handleTAF} />
-        {convosAFTN.length > 0 && (
-          <Divider>
-            <Chip label="AFTN" size="medium" variant="outlined" />
-          </Divider>
-        )}
-        <SectionAFTN handleAFTN={handleAFTN} />
-        {convosSITA.length > 0 && (
-          <Divider>
-            <Chip label="SITA" size="medium" variant="outlined" />
-          </Divider>
-        )}
-        <SectionSITA handleSITA={handleTAF} />
-      </Stack>
+    <>
+      {/* {!username && <Login />} */}
 
-      <Stack
-        direction="row"
-        spacing={2}
-        sx={{ marginY: 3, justifyContent: "center", paddingBottom: 15 }}
-      >
-        <Button
-          variant="contained"
-          href="#contained-buttons"
-          size="medium"
-          endIcon={<SendIcon />}
-          onClick={handleEncodeAll}
+      <Container sx={{ mt: 3, height: "100vh" }} maxWidth="md">
+        <Head>
+          <title>chatAero | Aviation Messages AI Decoder</title>
+        </Head>
+        <Stack direction="column" spacing={{ xs: 2, md: 2 }}>
+          {convosNOTAM.length > 0 && (
+            <Divider>
+              <Chip label="NOTAM" size="medium" variant="outlined" />
+            </Divider>
+          )}
+          <SectionNOTAM handleNOTAM={handleNOTAM} />
+          {convosMETAR.length > 0 && (
+            <Divider>
+              <Chip label="METAR" size="medium" variant="outlined" />
+            </Divider>
+          )}
+          <SectionMETAR handleMETAR={handleMETAR} />
+          {convosTAF.length > 0 && (
+            <Divider>
+              <Chip label="TAF" size="medium" variant="outlined" />
+            </Divider>
+          )}
+          <SectionTAF handleTAF={handleTAF} />
+          {convosAFTN.length > 0 && (
+            <Divider>
+              <Chip label="AFTN" size="medium" variant="outlined" />
+            </Divider>
+          )}
+          <SectionAFTN handleAFTN={handleAFTN} />
+          {convosSITA.length > 0 && (
+            <Divider>
+              <Chip label="SITA" size="medium" variant="outlined" />
+            </Divider>
+          )}
+          <SectionSITA handleSITA={handleTAF} />
+        </Stack>
+
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{ marginY: 3, justifyContent: "center", paddingBottom: 15 }}
         >
-          Decode
-        </Button>
-        <ExportButton handleAllExport={handleAllExport} />
-      </Stack>
-    </Container>
+          <Button
+            variant="contained"
+            href="#contained-buttons"
+            size="medium"
+            endIcon={<SendIcon />}
+            onClick={handleEncodeAll}
+          >
+            Decode
+          </Button>
+          <ExportButton handleAllExport={handleAllExport} />
+        </Stack>
+      </Container>
+    </>
   );
 }
