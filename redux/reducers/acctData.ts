@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import { userAgent } from 'next/server';
 
 
 const acctDataSlice = createSlice({
@@ -7,13 +6,23 @@ const acctDataSlice = createSlice({
     initialState: {
         username: null,
         userEmail: null, 
+        authLoading: false,
         usageCount: 0,
         isLoginPopupOpen: true,
+        error: null,
     },
     reducers: {
         setActiveUser: (state, action) => {
             state.username = action.payload.username;
             state.userEmail = action.payload.userEmail;
+            state.authLoading = false;
+        },
+        setAuthLoading: (state, action) => {
+            state.authLoading = action.payload;
+        },
+        setError: (state, action) => {
+            state.authLoading = false;
+            state.error = action.payload;
         },
         setUsageCount: (state, action) => {
             state.usageCount += action.payload;
@@ -28,5 +37,5 @@ const acctDataSlice = createSlice({
     }
 });
 
-export const {setActiveUser, setUsageCount, setUserLogOut, setIsLoginPopupOpen} = acctDataSlice.actions;
+export const {setActiveUser, setUsageCount, setUserLogOut, setIsLoginPopupOpen, setAuthLoading, setError} = acctDataSlice.actions;
 export default acctDataSlice.reducer;

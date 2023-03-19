@@ -58,7 +58,7 @@ export default function Index() {
             Build for Aviation Professionals & Enthusiasts
           </TitleTypography>
           <SubtitleTypography variant="h4">
-            Your AI-powered aviation message decoder
+            Your AI-powered multi-tasking aviation message decoder
           </SubtitleTypography>
           <SubtitleTypography>
             <Link href="/decode" passHref>

@@ -11,44 +11,29 @@ import {
   Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setActiveUser,
-  setUserLogOut,
-  setIsLoginPopupOpen,
-  setUsageCount,
-} from "@/redux/reducers/acctData";
-import { auth } from "@/pages/api/firebase";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { setUsageCount } from "@/redux/reducers/acctData";
+import { loginWithGoogle, logout } from "./AuthOps";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+
+interface LoginDialogProps {
+  open: boolean;
+  onClose: () => void;
+}
 
 const Login = () => {
   const router = useRouter();
   const { username, userEmail, usageCount, isLoginPopupOpen } = useSelector(
     (state: any) => state.acctData
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const handdleSignIn = () => {
-    signInWithPopup(auth, new GoogleAuthProvider()).then((result: any) => {
-      dispatch(setIsLoginPopupOpen(false));
-      dispatch(
-        setActiveUser({
-          username: result.user.displayName,
-          userEmail: result.user.email,
-        })
-      );
-    });
+  const handdleSignIn = async () => {
+    dispatch(loginWithGoogle());
   };
 
-  const handdleSignout = () => {
-    auth
-      .signOut()
-      .then(() => {
-        dispatch(setUserLogOut());
-        router.push("/");
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+  const handdleSignout = async () => {
+    dispatch(logout());
+    router.push("/");
   };
 
   // logout user when they chat over 30 messages

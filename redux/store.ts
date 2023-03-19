@@ -3,10 +3,15 @@ import userInputReducer from './reducers/userInput';
 import convoReducer from './reducers/convo';
 import acctDataReducer from './reducers/acctData';
 
-export default configureStore({
+const store = configureStore({
     reducer: {
         userInput: userInputReducer,
         convo: convoReducer,
         acctData: acctDataReducer,
     }
 });
+
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export default store;
