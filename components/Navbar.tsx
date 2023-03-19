@@ -66,13 +66,17 @@ const Navbar = () => {
 
   const handleLoginDialogClose = () => {
     dispatch(setIsLoginPopupOpen(false));
+    router.push("/");
   };
 
-  // route protection
-  if (!username && router.asPath === "/decode") {
-    dispatch(setIsLoginPopupOpen(true));
-  }
-  console.log("isLoginPopupOpen", isLoginPopupOpen);
+  // route protection (useEffect is the crucial part here)
+  React.useEffect(() => {
+    if (!username && router.asPath === "/decode") {
+      dispatch(setIsLoginPopupOpen(true));
+    }
+  }, [username, router.asPath]);
+
+  // DEBUG console.log("isLoginPopupOpen", isLoginPopupOpen);
 
   return (
     <>
@@ -172,7 +176,7 @@ const Navbar = () => {
 
             {/* user account management */}
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              <Tooltip title="Open User Settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt={username} />
                 </IconButton>

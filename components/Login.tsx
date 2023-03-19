@@ -48,7 +48,7 @@ const Login = ({ open, onClose }: LoginDialogProps) => {
     <Box>
       <Dialog open={open} onClose={onClose} sx={{}}>
         <Box sx={{ m: 3 /* margin top */ }}>
-          <Box sx={{ mb: 3 }}>
+          <Box sx={{ mb: 3, maxWidth: "250px" }}>
             <Typography
               variant="h4"
               component="h1"
@@ -57,7 +57,15 @@ const Login = ({ open, onClose }: LoginDialogProps) => {
             >
               <b>chatAero</b>
             </Typography>
-            {/* <Typography fontFamily={"Inter, -apple-system"}>Howdy!</Typography> */}
+            <Typography
+              variant="body2"
+              fontFamily={"Inter, -apple-system"}
+              sx={{ ml: 0 }}
+            >
+              We only use this login to verify that you are an actual user. Your
+              Google account information will be securely stored on your local
+              device.
+            </Typography>
           </Box>
 
           <Button
@@ -66,8 +74,9 @@ const Login = ({ open, onClose }: LoginDialogProps) => {
             size="medium"
             startIcon={<GoogleIcon />}
             onClick={handdleSignIn}
+            sx={{ textTransform: "none" }}
           >
-            Continue with Google
+            Continue with Google Account
           </Button>
         </Box>
       </Dialog>
