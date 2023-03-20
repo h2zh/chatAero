@@ -32,7 +32,6 @@ const Login = ({ open, onClose }: LoginDialogProps) => {
 
   const handdleSignout = async () => {
     dispatch(logout());
-    router.push("/");
   };
 
   // logout user when they chat over 30 messages
