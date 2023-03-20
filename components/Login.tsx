@@ -70,7 +70,6 @@ const Login = ({ open, onClose }: LoginDialogProps) => {
 
           <Button
             variant="contained"
-            href="#contained-buttons"
             size="medium"
             startIcon={<GoogleIcon />}
             onClick={handdleSignIn}

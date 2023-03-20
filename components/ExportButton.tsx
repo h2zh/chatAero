@@ -22,7 +22,6 @@ export default function ExportButton(props: any) {
       <Button
         ref={buttonComponent}
         variant="contained"
-        href="#contained-buttons"
         size="medium"
         startIcon={<CloudDownloadIcon />}
         onClick={handleClick}

@@ -176,11 +176,11 @@ const Navbar = () => {
 
             {/* user account management */}
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open User Settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={username} />
-                </IconButton>
-              </Tooltip>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt={username}>
+                  {username?.charAt(0).toUpperCase()}
+                </Avatar>
+              </IconButton>
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"

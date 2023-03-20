@@ -238,7 +238,6 @@ export default function AllSections() {
         >
           <Button
             variant="contained"
-            href="#contained-buttons"
             size="medium"
             endIcon={<SendIcon />}
             onClick={handleEncodeAll}
