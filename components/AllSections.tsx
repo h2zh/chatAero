@@ -35,6 +35,7 @@ import SectionSITA from "@/components/SectionSITA";
 import ExportButton from "@/components/ExportButton";
 import Head from "next/head";
 import Login from "@/components/Login";
+import { toDate, isBetween } from "@/util/DateFuncs";
 
 export default function AllSections() {
   const dispatch = useAppDispatch();
@@ -79,11 +80,54 @@ export default function AllSections() {
       dispatch(setFieldLoading(false));
       dispatch(setUsageCount(1));
 
+      let resContent = null;
+      // pivot function to parse a JSON response from NOTAM API call
+      if (content === NOTAM) {
+        const resJSON = JSON.parse(response.text);
+        const NOTAMNumber = resJSON["NOTAM_number"];
+        const locationCode = resJSON["location_code"];
+        const effectiveTime = resJSON["effective_time"];
+        const expirationTime = resJSON["expiration_time"];
+        const plainEnglish = resJSON["plain_English"];
+
+        const startTime = toDate(effectiveTime); //UTC
+        const endTime = toDate(expirationTime);
+        const now = new Date();
+        const statusTag = isBetween(now, startTime, endTime)
+          ? "[Active Now]"
+          : "";
+
+        resContent =
+          "[NOTAM Number] " +
+          NOTAMNumber +
+          "\n[Location]     " +
+          locationCode +
+          "\n[Effective Time] " +
+          startTime.toUTCString() +
+          " (" +
+          startTime.toLocaleString("en-US", {
+            timeZoneName: "short",
+          }) +
+          ") " +
+          statusTag +
+          "\n[Expiration Time] " +
+          endTime.toUTCString() +
+          " (" +
+          endTime.toLocaleString("en-US", {
+            timeZoneName: "short",
+          }) +
+          ")" +
+          "\n" +
+          plainEnglish;
+      } else {
+        resContent = response.text;
+      }
+
       if (response.text) {
         dispatch(
           concatFieldConvos({
             role: "assistant",
-            content: response.text, // .replace(/\n/g, "<br />")
+            content: resContent, // '\n' is handled by ChatMsg when mapping to html <p>
             time: new Date().getTime(),
           })
         );
@@ -95,7 +139,7 @@ export default function AllSections() {
 
   const handleNOTAM = async () => {
     const initNOTAMPrompt =
-      "Decode everything in the following NOTAM. Use UTC. ";
+      'Decode everything in the following NOTAM in plain English. Use UTC. Your response should be in JSON format with parameters: "NOTAM_number", "location_code", "effective_time", "expiration_time", "plain_English". All values in JSON should be a string. \n';
 
     handleSubmit(
       NOTAM,
