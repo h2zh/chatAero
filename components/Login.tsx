@@ -61,8 +61,8 @@ const Login = ({ open, onClose }: LoginDialogProps) => {
               fontFamily={"Inter, -apple-system"}
               sx={{ ml: 0 }}
             >
-              It's free! To make sure only real people using chatAero, we need
-              you continue with Google to verify.
+              It&rsquo;s free! To make sure only real people using chatAero, we
+              need you continue with Google to verify.
             </Typography>
           </Box>
 
