@@ -61,9 +61,8 @@ const Login = ({ open, onClose }: LoginDialogProps) => {
               fontFamily={"Inter, -apple-system"}
               sx={{ ml: 0 }}
             >
-              We only use this login to verify that you are an actual user. Your
-              Google account information will be securely stored on your local
-              device.
+              It's free! To make sure only real people using chatAero, we need
+              you continue with Google to verify.
             </Typography>
           </Box>
 
