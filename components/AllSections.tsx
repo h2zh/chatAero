@@ -139,7 +139,7 @@ export default function AllSections() {
 
   const handleNOTAM = async () => {
     const initNOTAMPrompt =
-      'Decode everything in the following NOTAM in plain English. Use UTC. Your response should be in JSON format with parameters: "NOTAM_number", "location_code", "effective_time", "expiration_time", "plain_English". All values in JSON should be a string. Time in the values only contain numbers. NOTAM_number could be empty.\n';
+      'Decode everything in the following NOTAM in plain English. Use UTC. Your response should be in JSON format with parameters: "NOTAM_number", "location_code", "effective_time", "expiration_time", "plain_English". All values in JSON should be a string wrapped by English quote marks. Time in the values only contain numbers. NOTAM_number could be empty.\n';
 
     handleSubmit(
       NOTAM,

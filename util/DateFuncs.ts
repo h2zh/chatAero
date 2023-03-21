@@ -16,7 +16,6 @@ export function toDate(inputDate: number | string): Date{
     } // convert to string
     else if(typeof inputDate === 'string') {
         timeStr = inputDate.replace(/\D/g,''); // remove non-digits
-        console.log(timeStr)
         if (!hasNumber(timeStr)) {
             return new Date(Date.UTC(2099,12))   // edge case: PERM is not a date
         } 
