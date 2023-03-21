@@ -94,7 +94,7 @@ export default function AllSections() {
         const endTime = toDate(expirationTime);
         const now = new Date();
         const statusTag = isBetween(now, startTime, endTime)
-          ? "[Active Now]"
+          ? "**Active Now**"
           : "";
 
         resContent =
@@ -117,7 +117,7 @@ export default function AllSections() {
             timeZoneName: "short",
           }) +
           ")" +
-          "\n" +
+          "\n[Info] " +
           plainEnglish;
       } else {
         resContent = response.text;
@@ -139,7 +139,7 @@ export default function AllSections() {
 
   const handleNOTAM = async () => {
     const initNOTAMPrompt =
-      'Decode everything in the following NOTAM in plain English. Use UTC. Your response should be in JSON format with parameters: "NOTAM_number", "location_code", "effective_time", "expiration_time", "plain_English". All values in JSON should be a string. \n';
+      'Decode everything in the following NOTAM in plain English. Use UTC. Your response should be in JSON format with parameters: "NOTAM_number", "location_code", "effective_time", "expiration_time", "plain_English". All values in JSON should be a string. Time in the values only contain numbers. NOTAM_number could be empty.\n';
 
     handleSubmit(
       NOTAM,
@@ -196,11 +196,15 @@ export default function AllSections() {
   };
 
   const handleEncodeAll = async () => {
-    handleNOTAM();
-    handleMETAR();
-    handleTAF();
-    handleAFTN();
-    handleSITA();
+    try {
+      handleNOTAM();
+      handleMETAR();
+      handleTAF();
+      handleAFTN();
+      handleSITA();
+    } catch (error) {
+      alert("Something went wrong. Please send the message again. ");
+    }
   };
 
   const handleOneExport = (fieldConvos: any, filename: string) => {

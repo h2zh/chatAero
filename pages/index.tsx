@@ -46,7 +46,7 @@ export default function Index() {
   return (
     <>
       <Head>
-        <title>chatAero - Decode METAR, TAF, NOTAM and more</title>
+        <title>chatAero | Decode METAR, TAF, NOTAM and more</title>
         <meta
           name="description"
           content="A Tool for Understanding Aviation Information"

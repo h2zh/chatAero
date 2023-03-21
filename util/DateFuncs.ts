@@ -1,3 +1,14 @@
+
+
+
+export function isBetween(date: Date, start: Date, end: Date): boolean{
+    return date >= start && date <= end;
+}
+
+function hasNumber(myString: string) {
+    return /\d/.test(myString);
+}
+
 export function toDate(inputDate: number | string): Date{
     let timeStr = null
     if(typeof inputDate === 'number') {
@@ -5,6 +16,7 @@ export function toDate(inputDate: number | string): Date{
     } // convert to string
     else if(typeof inputDate === 'string') {
         timeStr = inputDate.replace(/\D/g,''); // remove non-digits
+        console.log(timeStr)
         if (!hasNumber(timeStr)) {
             return new Date(Date.UTC(2099,12))   // edge case: PERM is not a date
         } 
@@ -21,12 +33,4 @@ export function toDate(inputDate: number | string): Date{
     const date = new Date(Date.UTC(year, month - 1, day, hour, minute));
 
     return date
-}
-
-export function isBetween(date: Date, start: Date, end: Date): boolean{
-    return date >= start && date <= end;
-}
-
-function hasNumber(myString: string) {
-    return /\d/.test(myString);
 }
