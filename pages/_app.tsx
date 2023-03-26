@@ -5,7 +5,6 @@ import reduxStore from "../redux/store";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Layout from "@/components/Layout";
-import { Analytics } from "@mui/icons-material";
 
 const theme = createTheme({
   palette: {
@@ -28,7 +27,6 @@ export default function App({ Component, pageProps }: AppProps) {
           </Layout>
         </ThemeProvider>
       </Provider>
-      <Analytics />
     </>
   );
 }

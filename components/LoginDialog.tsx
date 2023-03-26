@@ -14,17 +14,23 @@ import { setUsageCount, setIsLoginPopupOpen } from "@/redux/reducers/acctData";
 import { loginWithGoogle, logout } from "./AuthOps";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 
+// import { getAuth } from "firebase/auth";
+// import { useAuthState } from "react-firebase-hooks/auth";
+
 interface LoginDialogProps {
   open: boolean;
   onClose: () => void;
 }
 
-const Login = ({ open, onClose }: LoginDialogProps) => {
+const LoginDialog = ({ open, onClose }: LoginDialogProps) => {
   const router = useRouter();
   const { username, userEmail, usageCount, isLoginPopupOpen } = useAppSelector(
     (state: any) => state.acctData
   );
   const dispatch = useAppDispatch();
+
+  // const auth = getAuth();
+  // const [user, loading] = useAuthState(auth);
 
   const handdleSignIn = async () => {
     dispatch(loginWithGoogle());
@@ -81,4 +87,4 @@ const Login = ({ open, onClose }: LoginDialogProps) => {
   );
 };
 
-export default Login;
+export default LoginDialog;

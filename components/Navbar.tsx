@@ -20,7 +20,7 @@ import Image from "next/image";
 import { loginWithGoogle, logout } from "./AuthOps";
 import { setIsLoginPopupOpen } from "@/redux/reducers/acctData";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import Login from "./Login";
+import LoginDialog from "./LoginDialog";
 
 const pages = ["Decode", "About"];
 
@@ -211,7 +211,7 @@ const Navbar = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Login open={isLoginPopupOpen} onClose={handleLoginDialogClose} />
+      <LoginDialog open={isLoginPopupOpen} onClose={handleLoginDialogClose} />
     </>
   );
 };

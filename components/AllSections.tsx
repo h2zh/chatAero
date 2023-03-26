@@ -34,7 +34,7 @@ import SectionAFTN from "@/components/SectionAFTN";
 import SectionSITA from "@/components/SectionSITA";
 import ExportButton from "@/components/ExportButton";
 import Head from "next/head";
-import Login from "@/components/Login";
+import Login from "@/components/LoginDialog";
 import { toDate, isBetween } from "@/util/DateFuncs";
 
 export default function AllSections() {
