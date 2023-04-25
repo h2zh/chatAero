@@ -81,9 +81,14 @@ export default function AllSections() {
       dispatch(setUsageCount(1));
 
       let resContent = null;
+      let resJSON = null;
       // pivot function to parse a JSON response from NOTAM API call
       if (content === NOTAM) {
-        const resJSON = JSON.parse(response.text);
+        if (response.text.charAt(0) === ".") {
+          resJSON = JSON.parse(response.text.substring(1));
+        } else {
+          resJSON = JSON.parse(response.text);
+        }
         const NOTAMNumber = resJSON["NOTAM_number"];
         const locationCode = resJSON["location_code"];
         const effectiveTime = resJSON["effective_time"];
@@ -139,7 +144,7 @@ export default function AllSections() {
 
   const handleNOTAM = async () => {
     const initNOTAMPrompt =
-      'Decode everything in the following NOTAM in plain English. Use UTC. Your response should be in JSON format with parameters: "NOTAM_number", "location_code", "effective_time", "expiration_time", "plain_English". All values in JSON should be a string wrapped by English quote marks. Time in the values only contain numbers. NOTAM_number could be empty.\n';
+      'Decode everything in the following NOTAM in plain English. Use UTC. Your response should be in JSON format with parameters: "NOTAM_number", "location_code", "effective_time", "expiration_time", "plain_English". Enclose all parameters in quotes. Time in the values only contain numbers. NOTAM_number could be empty.\n';
 
     handleSubmit(
       NOTAM,
